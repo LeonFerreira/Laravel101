@@ -2,15 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Book extends Model
 {
     protected $table='book';
-    protected $fillable=['title', 'id_user', 'pages', 'price'];
-    public function relUsers()
+
+    protected $guarded = [''];
+
+    protected $with = ['user'];
+
+    public function user(): BelongsTo
     {
-        return $this->hasOne('App\Models\User', 'id', 'id_user');
+        return $this->belongsTo(User::class);
     }
 }

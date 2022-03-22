@@ -9,7 +9,6 @@
     </div>
 
     <div class="col-8 m-auto">
-        @csrf
         <table class="table">
             <thead>
               <tr>
@@ -22,14 +21,11 @@
             </thead>
             <tbody>
                 @foreach ($books as $book)
-                    @php
-                        $user=$book->find($book->id)->relUsers;
-                    @endphp
                     <tr>
-                        <th scope="row">{{$book->id}}</th>
-                        <td>{{$book->title}}</td>
-                        <td>{{$user->name}}</td>
-                        <td>{{$book->price}}</td>
+                        <th scope="row">{{ $book->id }}</th>
+                        <td>{{ $book->title }}</td>
+                        <td>{{ $book->user->name }}</td>
+                        <td>{{ $book->price }}</td>
                         <td>
                             <a href="{{ route('books.update', $book) }}">
                                 <button class="btn btn-dark">View</button>
@@ -39,15 +35,11 @@
                                 <button class="btn btn-primary">Edit</button>
                             </a>
 
-                            <a href="{{ url("books/$book->id") }}" class="js-del">
-                                <button class="btn btn-danger">Delete</button>
-                            </a>
-
-                            {{-- <form action="{{ route('book.destroy', $book) }}" method="post">
+                            <form action="{{ route('books.destroy', $book) }}" method="post">
                             @method('DELETE')
                             @csrf
-                                <button type="submit">Apagar</button>
-                            </form> --}}
+                                <button type="submit"  class="btn btn-danger">Apagar</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
